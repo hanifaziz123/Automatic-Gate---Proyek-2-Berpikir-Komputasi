@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "name": "Falah Reiza",
+      "occupation": "Student",
+      "id": "STU16525232",
+      "balance": 50000
+    },
+    {
+      "name": "Johannes Pandapotan",
+      "occupation": "Student",
+      "id": "STU16525229",
+      "balance": 120000
+    },
+    {
+      "name": "Budi Setiawan",
+      "occupation": "Other Staff",
+      "id": null,
+      "balance": 60000
+    },
+    {
+      "name": "Tedy Setiawan",
+      "occupation": "Teaching Staff", 
+      "id": "TEA00000001",
+      "balance": 100000
+    }
+  ]
+}
