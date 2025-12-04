@@ -1,0 +1,116 @@
+#struktur database json
+{
+  "users": [
+    {
+      "name": "Falah Reiza",
+      "status": "Student",
+      "id": "STU16525232",
+      "balance": 50000,
+      "plat": "B 1234 ABC",
+      "parking": {
+  "is_inside": False,
+  "last_entry_time": None
+      }
+    },
+    {
+      "name": "Johannes Pandapotan",
+      "status": "Student",
+      "id": "STU16525229",
+      "balance": 120000,
+      "plat": "D 5511 KMT",
+      "parking": {
+  "is_inside": False,
+  "last_entry_time": None
+      }
+    },
+    {
+      "name": "Budi Setiawan",
+      "status": "Employee",
+      "id": "EMP00000001",
+      "balance": 60000,
+      "plat": "D 1012 ABC",
+      "parking": {
+  "is_inside": False,
+  "last_entry_time": None
+      }
+    },
+    {
+      "name": "Tedy Setiawan",
+      "status": "Teaching Staff", 
+      "id": "TEA00000001",
+      "balance": 100000,
+      "plat": "B 2017 DBZ",
+      "parking": {
+  "is_inside": False,
+  "last_entry_time": None
+      }
+    }
+  ]
+}
+
+#mencari user berdasarkan QR code
+import json
+
+def find_user(qr_id):
+    with open("database.json", "r") as f:
+        db = json.load(f)
+
+    for user in db["users"]:
+        if user["id"] == qr_id:
+            return user
+
+    return None
+
+#print user
+user = find_user("STU16525232")
+if user:
+    print(user["name"], user["balance"])
+else:
+    print("User tidak ditemukan")
+
+#menambah user baru ke database
+
+def add_user(id, name, status, balance, plat):
+    with open("database.json", "r") as f:
+        db = json.load(f)
+#cek ID sudah ada atau belum
+    for u in db["users"]:
+        if u["id"] == id:
+            print("ID sudah terdaftar!")
+            return  
+
+    new_user = {
+        "id": id,
+        "name": name,
+        "status": status,
+        "balance": balance,
+        "plat": plat,
+        "parking": {
+            "is_inside": False,
+            "last_entry_time": None
+        }
+    }
+
+    db["users"].append(new_user)
+
+    with open("database.json", "w") as f:
+        json.dump(db, f, indent=4)
+
+    print("User berhasil ditambahkan!")
+
+#menambah saldo user
+def update_saldo(qr_id, amount):
+    with open("database.json", "r") as f:
+        db = json.load(f)
+
+    found=False
+    for user in db["users"]:
+        if user["id"] == qr_id:
+            user["balance"] += amount
+            found=True
+        else:
+            print("User tidak ditemukan")
+            break
+
+    with open("database.json", "w") as f:
+        json.dump(db, f, indent=4)
